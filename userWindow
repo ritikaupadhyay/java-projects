@@ -1,0 +1,214 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+
+import javax.swing.*;
+
+import com.toedter.calendar.JCalendar;
+
+
+public class userWindow extends JFrame implements ActionListener {
+
+	//allowing the user to Add new tickets or Edit existing tickets.
+	//The user should be able to look up a ticket by its ticket ID or customer name and edit the information regarding that ticket. 
+
+	private JButton addNewTicButton;
+	private JButton editTicButton;
+	private JButton saveButton;
+	
+	
+	private JRadioButton ticketIDRadioButton;
+	private JRadioButton custnameRadioButton;
+	private ButtonGroup searchRadioButtonGroup;
+	private JTextField ticketIDSearchTextField;
+	private JTextField custnameSearchTextField;
+	
+	
+	private JLabel depttNumLabel;
+	private JTextField depttNumTextField;
+	
+	private JLabel dateCreatedLabel;
+	private JCalendar dateCreatedCal;
+	
+	private JLabel ticketIDDisplayLabel;
+	private JTextField ticketIDDisplayTextField;
+	
+	private JLabel custIDDisplayLabel;
+	private JTextField custIDDisplayTextField;
+	
+	private JLabel custNameLabel;
+	private JTextField custNameTextField;
+	
+	private JLabel custPhNoLabel;
+	private JTextField custPhNoTextField;
+	
+	private JLabel custAddressLabel;
+	private JTextField custAddressTextField;
+	
+	private JLabel serviceIDLabel;
+	private JTextField serviceIDTextField;
+	
+	private JLabel isIssueResolvedLabel;
+	private JRadioButton issueResolvedYesRadio;
+	private JRadioButton issueResolvedNORadio;
+	private ButtonGroup issueResolvedRadioButtonGroup;
+	
+	private JLabel conversationNotes;
+	private JTextArea convoNotesTextArea;
+	
+	private JPanel addPanel;
+	private JPanel savePanel;
+	private JPanel editPanel;
+	private JPanel infoPanel;
+	
+	
+	void initButton() {
+		
+		addNewTicButton = new JButton("Add New Ticket");
+		editTicButton = new JButton("Edit a Ticket");
+		saveButton = new JButton("Save");
+		
+		this.addNewTicButton.addActionListener(this);
+		this.editTicButton.addActionListener(this);
+		this.saveButton.addActionListener(this);
+		
+	}
+	
+	void initLabel() {
+			
+		depttNumLabel = new JLabel("Department Number: ");
+		dateCreatedLabel = new JLabel("Date Created: ");
+		ticketIDDisplayLabel= new JLabel("Ticket ID: ");
+		custIDDisplayLabel = new JLabel("Customer ID: ");
+		custNameLabel = new JLabel("Customer Name: ");
+		custPhNoLabel = new JLabel("Customer Phone Number: ");
+		custAddressLabel = new JLabel("Customer Address: ");
+		serviceIDLabel = new JLabel("Service ID: ");
+		isIssueResolvedLabel = new JLabel("Is this issue resolved? ");
+		conversationNotes = new JLabel("Conversation Notes");
+		depttNumLabel = new JLabel("Department Number: ");
+		
+	}
+	
+	void initTextField() {
+		
+		depttNumTextField = new JTextField("Department Number", 15);
+		ticketIDDisplayTextField = new JTextField("Ticket ID", 15);
+		custIDDisplayTextField = new JTextField("Customer ID", 15);
+		custNameTextField = new JTextField("Customer Name", 15);
+		custPhNoTextField = new JTextField("Customer Phone Number", 15);
+		custAddressTextField = new JTextField("Customer Address", 35);
+		serviceIDTextField = new JTextField("Service ID", 15);
+		depttNumTextField = new JTextField("Department Number", 10);
+		
+	}
+	
+	void initTextArea() {
+		convoNotesTextArea = new JTextArea(5, 10);
+	}
+	
+	void initRadioButton() {
+		
+		ticketIDRadioButton = new JRadioButton("Search by Ticket ID");
+		this.ticketIDRadioButton.addActionListener(this);
+		
+		custnameRadioButton = new JRadioButton("Search by Customer Name");
+		this.custnameRadioButton.addActionListener(this);
+		
+		//add them to a button group to allow unselecting of previous choice
+		searchRadioButtonGroup.add(ticketIDRadioButton);
+		searchRadioButtonGroup.add(custnameRadioButton);
+		
+		issueResolvedYesRadio = new JRadioButton("Yes");
+		issueResolvedNORadio = new JRadioButton("No");
+		issueResolvedRadioButtonGroup.add(issueResolvedYesRadio);
+		issueResolvedRadioButtonGroup.add(issueResolvedNORadio);
+	}
+	
+	void initPanel() {
+		
+		addPanel = new JPanel();
+		editPanel = new JPanel();
+		savePanel = new JPanel();
+		
+		addPanel.add(addNewTicButton);
+		
+		editPanel.add(editTicButton);
+		editPanel.add(ticketIDRadioButton);
+		editPanel.add(custnameRadioButton);
+		editPanel.add(ticketIDSearchTextField);//enable text fields based on which radio button is selected
+		editPanel.add(custnameSearchTextField);
+		
+		savePanel.add(saveButton);
+		
+		infoPanel.add(dateCreatedLabel);
+		infoPanel.add(dateCreatedCal);
+		infoPanel.add(ticketIDDisplayLabel);
+		infoPanel.add(ticketIDDisplayTextField);
+		infoPanel.add(custIDDisplayLabel);
+		infoPanel.add(custIDDisplayTextField);
+		infoPanel.add(custNameLabel);
+		infoPanel.add(custNameTextField);
+		infoPanel.add(custPhNoLabel);
+		infoPanel.add(custPhNoTextField);
+		infoPanel.add(custAddressLabel);
+		infoPanel.add(custAddressTextField);
+		infoPanel.add(serviceIDLabel);
+		infoPanel.add(serviceIDTextField);
+		infoPanel.add(conversationNotes);
+		infoPanel.add(convoNotesTextArea);
+		infoPanel.add(isIssueResolvedLabel);
+		infoPanel.add(issueResolvedYesRadio);
+		infoPanel.add(issueResolvedNORadio);//enable deptt. num text field if NO radio button is selected
+		infoPanel.add(depttNumLabel);
+		infoPanel.add(depttNumTextField);
+		
+	}
+	
+	void initCalendar() {
+		dateCreatedCal = new JCalendar(new Date());
+		
+	}
+	
+	
+	void initAll() {
+		
+		this.setLayout(new GridLayout(2, 2));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("User");
+		this.setSize(4000,4000);
+		
+		initButton();
+		initCalendar();
+		initLabel();
+		initRadioButton();
+		initTextField();
+		initTextArea();
+		
+		initPanel();
+		this.add(addPanel);
+		this.add(editPanel);
+		this.add(infoPanel);
+		this.add(savePanel);
+		this.setVisible(true);
+		
+		
+	}
+	
+	
+	
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//add button is clicked: reset displayed fields 
+		// save button is clicked: create a new object and initialize it with values entered in the infoPanel: adminWindow
+		
+		//ticketIDRadioButton enable ticketIDSearch field
+		//custnameRadioButton enable custNameSearch field
+		//edit button is clicked, search arrayList of tickets by ticketID or custName: adminWindow
+		
+	}
+
+}
